@@ -1,0 +1,21 @@
+{
+  "name": "toolkits",
+  "version": "1.0.0",
+  "description": "just for fun",
+  "main": "fedEngneerInfoStatistic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.vmic.xyz:10994375/my-toolkits.git"
+  },
+  "keywords": [
+    "toolkit"
+  ],
+  "author": "gewei",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1"
+  }
+}
