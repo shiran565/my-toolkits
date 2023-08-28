@@ -29,7 +29,7 @@ class LinkedList {
         const current = this.head
         while(index>0){
             current = current.next
-            if(!current.next)
+            if(!current)
             break;
             i--;
         }
