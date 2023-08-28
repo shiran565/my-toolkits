@@ -1,68 +1,74 @@
-class Node{
+class Node {
     constructor(value) {
         this.value = value;
         this.next = null;
     }
 }
 
-class LinkedList {
+class List {
 
     constructor() {
-        this.head = null;
+        this.head = null
+        this.tail = null
+        this.length = 0
     }
 
-    add(value){
+    append(value) {
         const node = new Node(value);
-        if(!this.head){
+        if (!this.length == 0) {
+            this.head = this.tail = node
+        }else{
+            this.tail.next = node
+            this.tail = node
+        }
+        this.length++
+    }
+    
+    insert(position,value){
+        if(position < 0 || this.length < position ){
+            throw Exception("Index out of Length")
+        }
+        const node = new Node(value)
+        if(position == 0){
+            //新节点插入到头节点之前
+            node.next = this.head
             this.head = node
+            if(length =0){
+                this.tail = node
+            }
+        }else if(position == this.length){
+            this.tail.next = node
+            this.tail = node
+        }else{
+            const prev = this.head
+            //指针移动到前一个位置
+            for(let i=0;i<position-1;i++){
+                prev = prev.next
+            }
+            node.next = prev.next
+            prev.next = node
         }
+        this.length++
+    }
 
+    toString(){
+        let str = "["
         const current = this.head
+        if(!current){
+            return ""
+        }
         while(current.next){
-            current = current.next
+            str += current.value +","
         }
-        current.next = node;
-        return node;
-    }
 
-    get(index){
-        const current = this.head
-        while(index>0){
-            current = current.next
-            if(!current.next)
-            break;
-            i--;
-        }
-        return current;
-    }
-
-    insert(index, value) {
-        if (index < 0 || index > this.length) {
-            return;
-        }
-        var node = new Node(value);
-        if (!this.head){
-
-        }
-    }
-
-    delete(index){
-        if (index < 0 || index > this.length) {
-            return;
-        }
-        if (index === 0) {
-            this.head = this.head.next;
-            this.length--;
-            return;
-        }
-        var current = this.head;
-        var previous = null;
-        for (var i = 0; i < index; i++) {
-            previous = current;
-            current = current.next;
-        }
-        previous.next = current.next;
-        this.length--;
-        return;
+        str+= "]"
+        return str
     }
 }
+
+let list = new List()
+//list.append(2)
+//list.append(3)
+//list.append(5)
+//list.append(1)
+console.log(list.toString())
