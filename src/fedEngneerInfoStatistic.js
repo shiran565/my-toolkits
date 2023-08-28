@@ -28,10 +28,8 @@ function onloadFunction(){
         })
     })
 
-
     async function createRequest(id){
-        return await axios
-            .get("/PortalNew/Contacts/GetUserDetailInfo?userAccount="+id);
+        return await axios.get("/PortalNew/Contacts/GetUserDetailInfo?userAccount="+id);
     }
 }
 
