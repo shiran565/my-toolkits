@@ -1,5 +1,6 @@
+//全局变量，用于标记当前活跃的副作用函数
 let activeEffect;
-//effect栈，避免覆盖，用于实现副作用函数嵌套
+//effect栈，用于实现副作用函数嵌套，避免覆盖
 const effectStack = [];
 //存储副作用函数的桶
 const bucket = new WeakMap()
@@ -9,12 +10,15 @@ function effect(fn,options={}){
     const effectFn = ()=>{
         //调用cleanup清除依赖，
         cleanup(effectFn);
+        //将当前活跃的副作用函数标记到全局
         activeEffect = effectFn;
+
+        //使用栈结构实现副作用函数的嵌套
         effectStack.push(effectFn);
         const res = fn();
-        //执行完副作用函数后，将当前副作用函数弹出栈
         effectStack.pop()
-        //将activeEffect还原为之前的值
+
+        //还原全局标记
         activeEffect = effectStack[effectStack.length-1];
         //将函数执行结果作为返回值，手动调用可以拿到返回值，可用于实现compute、watch等功能
         return res;
@@ -27,12 +31,12 @@ function effect(fn,options={}){
     if(!options.lazy){
         effectFn();
     }
-    //将包裹后的副作用函数返回，用于后续的手动调用
+    //将包裹后的副作用函数返回，用于后续某些场景下手动调用
     return effectFn;
 }
 
 /**
- * 在get拦截函数内调用函数，追踪变化进行依赖收集
+ * 用于在get拦截函数内调用函数，追踪变化进行依赖收集
  * @param {*} target 
  * @param {*} key 
  * @returns 
@@ -55,7 +59,7 @@ function track(target,key){
 }
 
 /**
- * 在set函数内调用，触发副作用函数重新执行
+ * 用于在set函数内调用，触发副作用函数重新执行
  * @param {*} target 
  * @param {*} key 
  * @returns 

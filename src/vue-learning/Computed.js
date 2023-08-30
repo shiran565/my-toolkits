@@ -1,4 +1,4 @@
-import { track, trigger } from "./Effective";
+import { track, trigger,effect } from "./Effective";
 
 export function computed(getter) {
   //用于缓存上一次计算的值
