@@ -1,0 +1,33 @@
+lockfileVersion: 5.3
+
+specifiers:
+  axios: ^0.26.1
+  mock.js: ^0.2.0
+
+dependencies:
+  axios: 0.26.1
+  mock.js: 0.2.0
+
+packages:
+
+  /axios/0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
+    dependencies:
+      follow-redirects: 1.15.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
+  /mock.js/0.2.0:
+    resolution: {integrity: sha1-wNbuXljHtpAsMDBGLB7/O9M/i90=}
+    dev: false

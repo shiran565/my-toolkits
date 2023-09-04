@@ -16,6 +16,7 @@
   "author": "gewei",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "mock.js": "^0.2.0"
   }
 }
