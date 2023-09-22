@@ -1,8 +1,16 @@
+/**
+ * 形象地解释一下Promise的大概流程细节
+ * 假设你发消息问女朋友有没有空去看电影，如果女朋友回复有空你就要立即去买票，但是女朋友要开完会才能回复你
+ * 而你又不想一直时刻看着手机干等着，于是你请了一个叫Promise的智能助理帮你关注这个回复，这样你就可以去干别的事情了
+ * 并且你和Promise助理还约定了两个任务resolve和reject，如果回复有空就执行resolve，否则执行reject，但是现在你们只约定了这两个任务的名称，内容具体是啥还没定
+ * 这个助理给了你一个访问它的方式，在这之后，你可以随时通过then()这个渠道告诉Promise你要它执行的resolve和reject任务具体内容到底是啥
+ * @param {Function} excutor 
+ */
 function Promise(excutor) {
     this.value = null;
     this.reson = null;
     this.status = 'pending'
-    //用于暂存then方法传入的回调函数，然后在一步调用结束时候再执行
+    //用于暂存then方法传入的回调函数，然后在异步调用结束时候再执行
     this.onFulfilledArray = []
     this.onRejectedArray = []
 
@@ -21,7 +29,6 @@ function Promise(excutor) {
                 });
             }
         })
-
     }
 
     const reject =  reson => {
@@ -261,8 +268,6 @@ let promise = new Promise((resolve,reject)=>{
 promise.then(null).then(data => {
     console.log(data)
 })
-
-return 
 
 promise.then(onfulfilled = data=>{
     console.log(`${data} in first then`)
