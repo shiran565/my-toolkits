@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "node src/vue-learning/server.js",
+    "react": "node src/react-learning/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.vmic.xyz:10994375/my-toolkits.git"
+    "url": "git@github.com/shiran565/my-toolkits.git"
   },
   "keywords": [
     "toolkit"
@@ -18,12 +19,19 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.22.20",
+    "@babel/plugin-transform-react-jsx": "^7.22.15",
     "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/runtime": "^7.22.15",
     "axios": "^0.26.1",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.8.1",
     "express": "^4.18.2",
+    "html-webpack-plugin": "^5.5.3",
     "mock.js": "^0.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
     "vue": "3",
     "vue-loader": "^17.2.2",
     "vue-style-loader": "^4.1.3",
