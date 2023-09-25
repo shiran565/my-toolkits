@@ -1,24 +1,23 @@
 <template>
     <li class="todo-item">
-        <input type="checkbox" @change="toggleTodo(todo)" :checked="todo.done">
-        <span class="todo-item-text">{{ todo.text }}</span>
-        <button @click="remove(todo)">X</button>
+        <input type="checkbox" :checked="todo.done" @change="toggleTodo(todo)" />
+        <span class="todo-item-text">{{todo.text}}</span>
+        <button class="delete" @click="removeTodo(todo)">X</button>
     </li>
 </template>
+<script setup>
+const props = defineProps(['todo'])
+const emits = defineEmits(['toggleTodo', 'removeTodo'])
 
-<script>
-export default {
-    props: ['todo'],
-    methods: {
-        remove(todo) {
-            this.$store.dispatch('removeTodo', todo)
-        },
-        toggleTodo(todo) {
-            todo.done = !todo.done
-            this.$store.dispatch('toggleTodo', todo)
-        }
-    }
+const removeTodo = (todo) => {
+    //调用父组件的方法remove
+    emits('removeTodo', todo)
 }
+
+const toggleTodo = (todo) => {
+    emits('toggleTodo', todo)
+}
+
 </script>
 <style scoped>
     .todo-item {
