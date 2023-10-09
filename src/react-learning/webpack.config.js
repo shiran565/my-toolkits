@@ -9,10 +9,10 @@ const lookupDir = (dir) => {
 
 module.exports = {
   mode: "development",
-  entry: [lookupDir("index.js")],
+  entry: [lookupDir("./index.js")],
   output: {
     path: lookupDir("__build__"),
-    filename: "mail.js",
+    filename: "main.js",
     chunkFilename: "[id].chunk.js",
     publicPath: "/__build__/",
   },
@@ -21,8 +21,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env", "@babel/preset-react"] },
+        use: ["babel-loader"],
       },
       { test: /\.css$/, use: ["vue-style-loader", "css-loader"] },
     ],
@@ -45,10 +44,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(true),
-      "process.env": {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
+      __DEV__: JSON.stringify(true)
     }),
   ],
 };
