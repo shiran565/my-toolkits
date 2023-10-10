@@ -1,20 +1,24 @@
-const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const lookupDir = (dir) => {
-  return path.join(__dirname, dir);
-};
-
 module.exports = {
   mode: "development",
-  entry: [lookupDir("./index.js")],
+  entry: path.join(__dirname, "./index.js"),
   output: {
-    path: lookupDir("__build__"),
+    path: path.join(__dirname, "__build__"),
     filename: "main.js",
-    chunkFilename: "[id].chunk.js",
     publicPath: "/__build__/",
+  },
+  devServer: {
+    client: {
+      logging: "info",
+    },
+    /**
+     *  specify the directory where the static files will be served
+     *  if not specified here, the html file will be served from the public directory which in the root path
+     */
+    static: [{ directory: path.join(__dirname, "./public") }],
   },
   module: {
     rules: [
@@ -23,28 +27,8 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
-      { test: /\.css$/, use: ["vue-style-loader", "css-loader"] },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
     ],
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          name: "shared",
-          filename: "shared.js",
-          chunks: "initial",
-        },
-      },
-    },
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: lookupDir("./index.html"),
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(true)
-    }),
-  ],
+  plugins: [new HtmlWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
 };

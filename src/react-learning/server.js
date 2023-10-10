@@ -1,28 +1,21 @@
-const express = require('express')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const WebpackConfig = require('./webpack.config')
+const Webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const webpackConfig = require('./webpack.config.js');
 
-const app = express()
-const compiler = webpack(WebpackConfig)
+const compiler = Webpack(webpackConfig);
+const devServerOptions = { ...webpackConfig.devServer, open: true };
+const server = new WebpackDevServer(devServerOptions, compiler);
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: '/__build__/',
-  stats: {
-    colors: true,
-    chunks: false
-  }
-}))
+const runServer = async () => {
+  console.log('Starting server...');
+  await server.start();
+};
 
-app.use(webpackHotMiddleware(compiler))
+const stopServer = async () => {
+  console.log('Stopping server...');
+  await server.stop();
+};
 
-app.use(express.static(__dirname))
+runServer();
 
-app.use((req, res, next) => {
-  res.redirect('/')
-})
-const port = process.env.PORT || 4000
-module.exports = app.listen(port, () => {
-  console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
-})
+//setTimeout(stopServer, 5000);
